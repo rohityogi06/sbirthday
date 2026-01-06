@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday Kittu 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    overflow:hidden;
+}
+
+/* ===== Banner / Five Walls ===== */
+.banner{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:20px;
+    gap:10px;
+}
+
+.wall{
+    background:white;
+    color:#ff4b7d;
+    font-size:28px;
+    font-weight:700;
+    padding:15px 25px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+    text-align:center;
+    transition: transform 0.3s;
+    cursor:pointer;
+}
+
+.wall:hover{
+    transform: scale(1.1);
+}
+
+/* ===== Container ===== */
+.container{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+
+/* ===== Card ===== */
+.card{
+    background:white;
+    border-radius:25px;
+    max-width:420px;
+    width:100%;
+    text-align:center;
+    padding:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+    margin-top:20px;
+    animation:zoom 1s;
+}
+@keyframes zoom{from{transform:scale(.7)}to{transform:scale(1)}}
+
+/* ===== Photo ===== */
+.photo{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    border:4px solid #ff4b7d;
+    margin:10px auto;
+    background:url('Kittu.jpg') center/cover;
+}
+
+/* ===== Text ===== */
+.msg{
+    color:#222;
+    line-height:1.7;
+    font-size:17px;
+    font-weight:500;
+    margin:15px 0;
+}
+
+.heart{
+    font-size:45px;
+    animation:beat 1s infinite;
+}
+@keyframes beat{50%{transform:scale(1.3)}}
+
+/* ===== Cake / Fireworks ===== */
+.cake{
+    font-size:70px;
+    cursor:pointer;
+    margin:10px 0;
+}
+
+/* ===== Signature ===== */
+.signature{
+    margin-top:10px;
+    font-size:17px;
+    color:#ff4b7d;
+    font-weight:600;
+    letter-spacing:0.5px;
+}
+.signature span{
+    font-size:19px;
+    color:#e6004c;
+}
+</style>
+</head>
+
+<body onclick="playMusic()">
+
+<!-- ===== Happy Birthday Banner / Five Walls ===== -->
+<div class="banner">
+    <div class="wall">H</div>
+    <div class="wall">A</div>
+    <div class="wall">P</div>
+    <div class="wall">P</div>
+    <div class="wall">Y</div>
+    <div class="wall">B</div>
+    <div class="wall">I</div>
+    <div class="wall">R</div>
+    <div class="wall">T</div>
+    <div class="wall">H</div>
+    <div class="wall">D</div>
+    <div class="wall">A</div>
+    <div class="wall">Y</div>
+</div>
+
+<audio id="bgm" loop>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+<div class="card">
+
+<div class="photo"></div>
+
+<div class="msg" id="letter"></div>
+
+<div class="cake" onclick="alert('Make a wish Kittu ✨🎂')">🎂🕯</div>
+
+<div class="heart">❤️</div>
+
+<button onclick="createFirework()">🎆 Celebrate</button>
+
+<p class="signature">— Tumhara apna <span>Rohit</span> 💌</p>
+
+</div>
+</div>
+
+<script>
+// ===== Typed Love Letter =====
+let text="Kittu, tum meri zindagi ka sabse pyara hissa ho 🌸\nTumhari muskaan meri duniya hai ✨\nMain hamesha tumhara saath nibhaunga 💕";
+let i=0;
+function typeLetter(){
+    if(i<text.length){
+        document.getElementById("letter").innerHTML += text.charAt(i)=='\n'?'<br>':text.charAt(i);
+        i++; setTimeout(typeLetter,60);
+    }
+}
+typeLetter();
+
+// ===== Fireworks / Big Patakhe =====
+function createFirework(){
+    for(let j=0;j<30;j++){ // number of fireworks
+        let f=document.createElement("div");
+        f.className="firework";
+        
+        // Random size (12px - 22px)
+        let size = Math.random()*10 + 12;
+        f.style.width = size + "px";
+        f.style.height = size + "px";
+        
+        // Random color
+        const colors = ["gold","pink","yellow","white","#ff4b7d"];
+        f.style.background = colors[Math.floor(Math.random()*colors.length)];
+        
+        // Starting position
+        f.style.left = Math.random()*window.innerWidth + "px";
+        f.style.top = window.innerHeight + "px";
+        
+        f.style.position="absolute";
+        f.style.borderRadius="50%";
+        f.style.opacity = 1;
+        f.style.transition = "all 1s ease-out";
+        
+        document.body.appendChild(f);
+        
+        // Animate explosion
+        setTimeout(()=>{
+            f.style.transform = `translateY(-${Math.random()*350 + 250}px) translateX(${Math.random()*300 - 150}px) scale(1.5)`;
+            f.style.opacity = 0;
+        },10);
+        
+        // Remove after animation
+        setTimeout(()=>f.remove(),1200);
+    }
+}
+
+// ===== Music =====
+function playMusic(){
+    var bgm = document.getElementById("bgm");
+    bgm.play().catch(()=>console.log("Tap to play music."));
+}
+</script>
+
+</body>
+</html>
